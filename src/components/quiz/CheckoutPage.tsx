@@ -14,7 +14,7 @@ const PRODUCT_NAME = "Código da Atração Natural";
 
 const CheckoutPage = ({ onBack, onSuccess }: CheckoutPageProps) => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
   const [phone, setPhone] = useState("");
   const [payment, setPayment] = useState<"mpesa" | "emola">("mpesa");
   const [loading, setLoading] = useState(false);
@@ -51,7 +51,7 @@ const CheckoutPage = ({ onBack, onSuccess }: CheckoutPageProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!name || !email || !phone) {
+    if (!name || !whatsapp || !phone) {
       toast.error("Por favor preencha todos os campos.");
       return;
     }
@@ -105,7 +105,7 @@ const CheckoutPage = ({ onBack, onSuccess }: CheckoutPageProps) => {
 
       if (result.success && result.success.includes("sucesso")) {
         // Store for tracking
-        localStorage.setItem("email", email);
+        localStorage.setItem("whatsapp", whatsapp);
         localStorage.setItem("telefone", phone);
 
         // Facebook Pixel Purchase event
@@ -144,7 +144,7 @@ const CheckoutPage = ({ onBack, onSuccess }: CheckoutPageProps) => {
           body: JSON.stringify({
             valor: PRODUCT_PRICE,
             nome: "codigoatracao",
-            email: email,
+            whatsapp: whatsapp,
             telefone: phone,
             utm_source: localStorage.getItem("utm_source"),
             utm_medium: localStorage.getItem("utm_medium"),
@@ -216,13 +216,13 @@ const CheckoutPage = ({ onBack, onSuccess }: CheckoutPageProps) => {
           />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Email</label>
+          <label className="text-sm font-medium mb-1 block">WhatsApp</label>
           <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="tel"
+            value={whatsapp}
+            onChange={(e) => setWhatsapp(e.target.value)}
             required
-            placeholder="seu@email.com"
+            placeholder="84/85/86/87 XXXXXXX"
             className="w-full bg-card border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
           />
         </div>
