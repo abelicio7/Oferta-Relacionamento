@@ -5,9 +5,10 @@ import QuizQuestion from "@/components/quiz/QuizQuestion";
 import LoadingScreen from "@/components/quiz/LoadingScreen";
 import ResultPage from "@/components/quiz/ResultPage";
 import CheckoutPage from "@/components/quiz/CheckoutPage";
+import ThankYouPage from "@/components/quiz/ThankYouPage";
 import { quizQuestions } from "@/components/quiz/quizData";
 
-type Step = "intro" | "quiz" | "loading" | "result" | "checkout";
+type Step = "intro" | "quiz" | "loading" | "result" | "checkout" | "thankyou";
 
 const Index = () => {
   const [step, setStep] = useState<Step>("intro");
@@ -53,7 +54,14 @@ const Index = () => {
           <ResultPage key="result" onCheckout={() => setStep("checkout")} />
         )}
         {step === "checkout" && (
-          <CheckoutPage key="checkout" onBack={() => setStep("result")} />
+          <CheckoutPage
+            key="checkout"
+            onBack={() => setStep("result")}
+            onSuccess={() => setStep("thankyou")}
+          />
+        )}
+        {step === "thankyou" && (
+          <ThankYouPage key="thankyou" />
         )}
       </AnimatePresence>
     </div>
