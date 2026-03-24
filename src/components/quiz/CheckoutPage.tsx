@@ -105,7 +105,7 @@ const CheckoutPage = ({ onBack, onSuccess }: CheckoutPageProps) => {
 
       if (result.success && result.success.includes("sucesso")) {
         // Store for tracking
-        localStorage.setItem("email", email);
+        localStorage.setItem("whatsapp", whatsapp);
         localStorage.setItem("telefone", phone);
 
         // Facebook Pixel Purchase event
