@@ -14,7 +14,7 @@ const PRODUCT_NAME = "Código da Atração Natural";
 
 const CheckoutPage = ({ onBack, onSuccess }: CheckoutPageProps) => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
   const [phone, setPhone] = useState("");
   const [payment, setPayment] = useState<"mpesa" | "emola">("mpesa");
   const [loading, setLoading] = useState(false);
