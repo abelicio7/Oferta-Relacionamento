@@ -51,7 +51,7 @@ const CheckoutPage = ({ onBack, onSuccess }: CheckoutPageProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!name || !email || !phone) {
+    if (!name || !whatsapp || !phone) {
       toast.error("Por favor preencha todos os campos.");
       return;
     }
