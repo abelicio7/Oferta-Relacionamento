@@ -144,7 +144,7 @@ const CheckoutPage = ({ onBack, onSuccess }: CheckoutPageProps) => {
           body: JSON.stringify({
             valor: PRODUCT_PRICE,
             nome: "codigoatracao",
-            email: email,
+            whatsapp: whatsapp,
             telefone: phone,
             utm_source: localStorage.getItem("utm_source"),
             utm_medium: localStorage.getItem("utm_medium"),
