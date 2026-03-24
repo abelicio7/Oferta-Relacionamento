@@ -216,13 +216,13 @@ const CheckoutPage = ({ onBack, onSuccess }: CheckoutPageProps) => {
           />
         </div>
         <div>
-          <label className="text-sm font-medium mb-1 block">Email</label>
+          <label className="text-sm font-medium mb-1 block">WhatsApp</label>
           <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="tel"
+            value={whatsapp}
+            onChange={(e) => setWhatsapp(e.target.value)}
             required
-            placeholder="seu@email.com"
+            placeholder="84/85/86/87 XXXXXXX"
             className="w-full bg-card border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
           />
         </div>
