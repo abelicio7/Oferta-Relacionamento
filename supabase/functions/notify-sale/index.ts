@@ -31,26 +31,6 @@ serve(async (req) => {
     const pushcutBody = await pushcutResp.text();
     console.log("PushCut response:", pushcutStatus, pushcutBody);
 
-    // UTMify conversion
-    const UTMIFY_TOKEN = Deno.env.get("UTMIFY_TOKEN");
-    if (UTMIFY_TOKEN) {
-      const utmResp = await fetch("https://api.utmify.com.br/v1/conversao", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${UTMIFY_TOKEN}`,
-        },
-        body: JSON.stringify({
-          valor: amount,
-          nome: "codigoatracao",
-          whatsapp: whatsapp,
-          telefone: phone,
-        }),
-      });
-      const utmBody = await utmResp.text();
-      console.log("UTMify response:", utmResp.status, utmBody);
-    }
-
     return new Response(
       JSON.stringify({ success: true, pushcutStatus }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
