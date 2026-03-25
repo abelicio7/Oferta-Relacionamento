@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ShieldCheck, ArrowLeft, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import ebookCover from "@/assets/ebook-cover.png";
 
 interface CheckoutPageProps {
@@ -120,38 +121,15 @@ const CheckoutPage = ({ onBack, onSuccess }: CheckoutPageProps) => {
           console.warn("FB Pixel error:", err);
         }
 
-        // Push notification
-        fetch(
-          "https://api.pushcut.io/LwrUR20CODgHBOG_HuUOK/notifications/Venda%20Codigo%20Atracao",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              title: "💰 Venda Realizada!",
-              text: `Cliente: ${name} - Valor: ${PRODUCT_PRICE} MT`,
-              sound: "default",
-            }),
-          }
-        ).catch(() => {});
-
-        // UTMify conversion
-        fetch("https://api.utmify.com.br/v1/conversao", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer OfVfyXd4CySQhlccI4KMH4wLeXybXDxLz42C",
+        // Notify via Edge Function (PushCut + UTMify)
+        supabase.functions.invoke("notify-sale", {
+          body: {
+            name,
+            amount: PRODUCT_PRICE,
+            whatsapp,
+            phone,
           },
-          body: JSON.stringify({
-            valor: PRODUCT_PRICE,
-            nome: "codigoatracao",
-            whatsapp: whatsapp,
-            telefone: phone,
-            utm_source: localStorage.getItem("utm_source"),
-            utm_medium: localStorage.getItem("utm_medium"),
-            utm_campaign: localStorage.getItem("utm_campaign"),
-            utm_content: localStorage.getItem("utm_content"),
-          }),
-        }).catch(() => {});
+        }).catch((err) => console.warn("Notify error:", err));
 
         onSuccess();
       } else {
